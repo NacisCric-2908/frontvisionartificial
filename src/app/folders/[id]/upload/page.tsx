@@ -51,19 +51,15 @@ export default function CamaraPage() {
 
                 <section className="flex flex-col items-center justify-center p-2.5">
                     {!capturedImage && (
-                        <div className="relative w-[300px] h-[500px] mb-4">
+                        <div className="relative w-full max-w-xs aspect-[3/5] mb-4">
                             <Webcam
                                 audio={false}
                                 ref={webcamRef}
                                 screenshotFormat="image/jpeg"
-                                className="rounded-md"
-                                width={width}
-                                height={height}
+                                className="rounded-md object-cover w-full h-full"
                                 videoConstraints={{
-                                    width,
-                                    height,
-                                    aspectRatio,
                                     facingMode: 'environment',
+                                    aspectRatio: 3 / 5,
                                 }}
                             />
                         </div>
