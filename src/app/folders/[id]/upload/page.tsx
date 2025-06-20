@@ -5,6 +5,7 @@ import Button from "@/components/button";
 import React, { useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 import { Camera } from 'lucide-react';
+import Image from "next/image";
 
 export default function CamaraPage() {
     const params = useParams();
@@ -76,10 +77,12 @@ export default function CamaraPage() {
                         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
                             <div className="bg-blue-200 text-black p-6 rounded-lg w-[320px]">
                                 <h2 className="text-xl font-semibold mb-4 text-center">¿Deseas guardar esta foto?</h2>
-                                <img
+                                <Image
                                     src={capturedImage}
                                     alt="Previsualización"
                                     className="rounded-md w-[300px] h-auto aspect-[3/5] mb-4"
+                                    width={300}
+                                    height={height}
                                 />
                                 <div className="flex justify-between">
                                     <button
