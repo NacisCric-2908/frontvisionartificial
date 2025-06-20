@@ -5,6 +5,7 @@ import Button from "@/components/button";
 import React, { useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 import { Camera } from 'lucide-react';
+import Image from "next/image";
 
 export default function CamaraPage() {
     const params = useParams();
@@ -17,7 +18,7 @@ export default function CamaraPage() {
     const height = Math.round(width / aspectRatio);
 
     const capture = () => {
-        const imageSrc = webcamRef.current?.getScreenshot();
+        const imageSrc = webcamRef.current?.getScreenshot({width: width, height: height});
         if (imageSrc) {
             setCapturedImage(imageSrc);
             setShowModal(true);
@@ -25,8 +26,15 @@ export default function CamaraPage() {
     };
 
     const confirmImage = () => {
-        // Aquí enviar la imagen al backend o guardarla
-        console.log('Imagen confirmada:', capturedImage);
+        if (capturedImage) {
+            // Crear un enlace temporal para descargar la imagen
+            const link = document.createElement('a');
+            link.href = capturedImage;
+            link.download = 'foto.webp'; // nombre del archivo
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
 
         setCapturedImage(null);
         setShowModal(false);
@@ -51,19 +59,16 @@ export default function CamaraPage() {
 
                 <section className="flex flex-col items-center justify-center p-2.5">
                     {!capturedImage && (
-                        <div className="relative w-[300px] h-[500px] mb-4">
+                        <div className="relative w-full max-w-xs aspect-[3/5] mb-4">
                             <Webcam
                                 audio={false}
                                 ref={webcamRef}
-                                screenshotFormat="image/jpeg"
-                                className="rounded-md"
-                                width={width}
-                                height={height}
+                                screenshotFormat="image/webp"
+                                screenshotQuality={1}
+                                className="rounded-md object-cover w-full h-full"
                                 videoConstraints={{
-                                    width,
-                                    height,
-                                    aspectRatio,
                                     facingMode: 'environment',
+                                    aspectRatio: 3 / 5,
                                 }}
                             />
                         </div>
@@ -80,10 +85,12 @@ export default function CamaraPage() {
                         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
                             <div className="bg-blue-200 text-black p-6 rounded-lg w-[320px]">
                                 <h2 className="text-xl font-semibold mb-4 text-center">¿Deseas guardar esta foto?</h2>
-                                <img
+                                <Image
                                     src={capturedImage}
                                     alt="Previsualización"
                                     className="rounded-md w-[300px] h-auto aspect-[3/5] mb-4"
+                                    width={width}
+                                    height={height}
                                 />
                                 <div className="flex justify-between">
                                     <button
