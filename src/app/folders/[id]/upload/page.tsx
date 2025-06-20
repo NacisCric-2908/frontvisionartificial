@@ -26,8 +26,15 @@ export default function CamaraPage() {
     };
 
     const confirmImage = () => {
-        // Aquí enviar la imagen al backend o guardarla
-        console.log('Imagen confirmada:', capturedImage);
+        if (capturedImage) {
+            // Crear un enlace temporal para descargar la imagen
+            const link = document.createElement('a');
+            link.href = capturedImage;
+            link.download = 'foto.jpg'; // nombre del archivo
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
 
         setCapturedImage(null);
         setShowModal(false);
