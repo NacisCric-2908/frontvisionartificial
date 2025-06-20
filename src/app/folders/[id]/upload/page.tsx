@@ -18,7 +18,7 @@ export default function CamaraPage() {
     const height = Math.round(width / aspectRatio);
 
     const capture = () => {
-        const imageSrc = webcamRef.current?.getScreenshot();
+        const imageSrc = webcamRef.current?.getScreenshot({width: width, height: height});
         if (imageSrc) {
             setCapturedImage(imageSrc);
             setShowModal(true);
@@ -30,7 +30,7 @@ export default function CamaraPage() {
             // Crear un enlace temporal para descargar la imagen
             const link = document.createElement('a');
             link.href = capturedImage;
-            link.download = 'foto.jpg'; // nombre del archivo
+            link.download = 'foto.webp'; // nombre del archivo
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -63,7 +63,8 @@ export default function CamaraPage() {
                             <Webcam
                                 audio={false}
                                 ref={webcamRef}
-                                screenshotFormat="image/jpeg"
+                                screenshotFormat="image/webp"
+                                screenshotQuality={1}
                                 className="rounded-md object-cover w-full h-full"
                                 videoConstraints={{
                                     facingMode: 'environment',
@@ -88,7 +89,7 @@ export default function CamaraPage() {
                                     src={capturedImage}
                                     alt="Previsualización"
                                     className="rounded-md w-[300px] h-auto aspect-[3/5] mb-4"
-                                    width={300}
+                                    width={width}
                                     height={height}
                                 />
                                 <div className="flex justify-between">
