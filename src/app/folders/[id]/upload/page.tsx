@@ -10,15 +10,18 @@ import Image from "next/image";
 export default function CamaraPage() {
     const params = useParams();
     const { id } = params;
+
     const webcamRef = useRef<Webcam>(null);
     const [capturedImage, setCapturedImage] = useState<string | null>(null);
     const [showModal, setShowModal] = useState(false);
-    const aspectRatio = 3 / 5;
-    const width = 300;
-    const height = Math.round(width / aspectRatio);
+    const videoConstraints = {
+        width: 1200,
+        height: 720,
+        facingMode: "environment"
+    };
 
     const capture = () => {
-        const imageSrc = webcamRef.current?.getScreenshot({width: width, height: height});
+        const imageSrc = webcamRef.current?.getScreenshot({ width: 720, height: 1200 });
         if (imageSrc) {
             setCapturedImage(imageSrc);
             setShowModal(true);
@@ -55,42 +58,40 @@ export default function CamaraPage() {
                     <Button text="Volver" link={`/folders/${id}`} color="button-back" />
                 </section>
 
-                <p className="text-center font-bold text-xl my-2">Tomar foto</p>
+                <p className="text-center font-bold my-2">Asegurate de estar en un lugar iluminado y tomar la foto con claridad</p>
 
                 <section className="flex flex-col items-center justify-center p-2.5">
                     {!capturedImage && (
-                        <div className="relative w-full max-w-xs aspect-[3/5] mb-4">
+                        <div className="relative w-4/5 aspect-[3/5] mb-4">
                             <Webcam
                                 audio={false}
                                 ref={webcamRef}
                                 screenshotFormat="image/webp"
-                                screenshotQuality={1}
-                                className="rounded-md object-cover w-full h-full"
-                                videoConstraints={{
-                                    facingMode: 'environment',
-                                    aspectRatio: 3 / 5,
-                                }}
+                                className="rounded-md"
+                                width={720}
+                                height={1200}
+                                videoConstraints={videoConstraints}
                             />
                         </div>
                     )}
 
                     {!capturedImage && (
                         <button onClick={capture} className="mt-4 bg-blue-500 text-white p-4 rounded-full">
-                            <Camera className="w-10 h-auto" />
+                            <Camera className="w-8 h-auto" />
                         </button>
                     )}
 
 
                     {showModal && capturedImage && (
                         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-                            <div className="bg-blue-200 text-black p-6 rounded-lg w-[320px]">
+                            <div className="bg-blue-200 text-black p-6 rounded-lg w-4/5">
                                 <h2 className="text-xl font-semibold mb-4 text-center">¿Deseas guardar esta foto?</h2>
                                 <Image
                                     src={capturedImage}
                                     alt="Previsualización"
-                                    className="rounded-md w-[300px] h-auto aspect-[3/5] mb-4"
-                                    width={width}
-                                    height={height}
+                                    className="rounded-md mb-4"
+                                    width={720}
+                                    height={720}
                                 />
                                 <div className="flex justify-between">
                                     <button
