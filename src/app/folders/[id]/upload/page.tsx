@@ -84,8 +84,8 @@ export default function CamaraPage() {
 
                     {showModal && capturedImage && (
                         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-                            <div className="bg-blue-200 text-black p-6 rounded-lg w-4/5">
-                                <h2 className="text-xl font-semibold mb-4 text-center">¿Deseas guardar esta foto?</h2>
+                            <div className="bg-platinum text-black p-6 rounded-lg w-4/5">
+                                <p className="text-xl font-bold mb-4 text-center">¿Deseas guardar esta foto?</p>
                                 <Image
                                     src={capturedImage}
                                     alt="Previsualización"
