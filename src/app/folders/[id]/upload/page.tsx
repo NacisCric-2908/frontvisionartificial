@@ -55,7 +55,7 @@ export default function CamaraPage() {
 
             <main className="h-full p-2.5">
                 <section className="flex justify-between p-2.5 items-center">
-                    <Button text="Volver" link={`/folders/${id}`} color="button-back" />
+                    <Button text="Volver" link={`/folders/${id}`} color="button-purple" />
                 </section>
 
                 <p className="text-center font-bold my-2">Asegurate de estar en un lugar iluminado y tomar la foto con claridad</p>

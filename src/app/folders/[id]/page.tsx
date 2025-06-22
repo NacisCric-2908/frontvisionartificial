@@ -15,9 +15,9 @@ export default function FolderPage() {
 
       <main className="h-full p-2.5">
         <section className="flex justify-between p-2.5 items-center">
-          <Button text="Volver" link="/folders" color="button-back" />
-          <Button text="Enviar" link="/folders" color="button-send" />
-          <Button text="Tomar foto" link={`/folders/${id}/upload`} color="button-create" />
+          <Button text="Volver" link="/folders" color="button-purple" />
+          <Button text="Enviar" link="/folders" color="button-blue" />
+          <Button text="Tomar foto" link={`/folders/${id}/upload`} color="button-green" />
         </section>
 
         <p className="text-center font-bold text-xl my-2">modelos-{id}-2025-1</p>

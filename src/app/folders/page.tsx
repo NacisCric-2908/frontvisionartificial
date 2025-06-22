@@ -13,9 +13,9 @@ export default function Folders() {
 
       <main className="h-full p-2.5">
         <section className="flex justify-between p-2.5 items-center">
-          <Button text="Eliminar" link="/folders" color="button-delete" />
-
-          <Button text="Crear" link="/folders" color="button-create" />
+          <Button text="Volver" link="/" color="button-purple" />
+          <Button text="Eliminar" link="/folders" color="button-red" />
+          <Button text="Crear" link="/folders" color="button-green" />
         </section>
 
         <section className="p-2.5 flex flex-wrap gap-2.5 justify-between">
